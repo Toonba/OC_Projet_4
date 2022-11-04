@@ -197,10 +197,10 @@ main {
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 20px;
+    font-size: 3rem;
+    z-index: 10;
     animation: confirmation 5s ease-in-out both paused;
 }
-
-
 
 .modal-body {
     padding: 15px 8%;
@@ -354,10 +354,11 @@ input[data-error]::after {
     border: 0;
 }
 
-
 .error {
     color: red;
     font-size: 10px;
+    display: none;
+    padding: 0.3rem;
 }
 /* custom select styles */
 .custom-select {
