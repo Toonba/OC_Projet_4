@@ -185,23 +185,6 @@ main {
     padding-top: 10px;
 }
 
-.confirmation {
-    background-color: green;
-    height: 10rem;
-    width: 90%;
-    opacity: 0.95;
-    text-align: center;
-    padding-top: 3rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 20px;
-    font-size: 3rem;
-    z-index: 10;
-    animation: confirmation 5s ease-in-out both paused;
-}
-
 .modal-body {
     padding: 15px 8%;
     margin: 15px auto;
@@ -354,12 +337,6 @@ input[data-error]::after {
     border: 0;
 }
 
-.error {
-    color: red;
-    font-size: 10px;
-    display: none;
-    padding: 0.3rem;
-}
 /* custom select styles */
 .custom-select {
     position: relative;
@@ -552,6 +529,34 @@ footer {
     to {
         opacity: 1;
     }
+}
+
+.error {
+    color: red;
+    font-size: 10px;
+    display: none;
+    padding: 0.3rem;
+}
+
+#confirmation {
+    display: none;
+    background-color: green;
+    height: 15rem;
+    width: 90%;
+    opacity: 0.95;
+    text-align: center;
+    padding-top: 3rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    font-size: 3rem;
+    z-index: 10;
+}
+
+#city-checkbox {
+    border-radius: 16px;
 }
 
 @keyframes nop {

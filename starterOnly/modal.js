@@ -22,8 +22,21 @@ const myForm = document.getElementById("myForm");
 const error = document.getElementsByClassName("error");
 const checkValidation = document.getElementsByClassName("check-validation");
 const condition = document.getElementById("checkbox1");
-const confirmation = document.getElementsByClassName("confirmation");
-const myInput = myForm.getElementsByTagName('input'); 
+const confirmation = document.getElementById("confirmation");
+const cityDiv = document.getElementById("city-checkbox");
+
+// Error message for each scenario
+const messageErreurPrenom = "Vous devez indiqué votre prénom, il doit contenir au moins 2 lettres";
+const messageErreurNom = "Vous devez indiqué votre nom, il doit contenir au moins 2 lettres";
+const messageErreurNbTournoi = "Vous devez indiquer le nombre de tournoi auxquels vous avez déjà participé";
+const messageErreurMail = "Vous devez renseigner une adresse mail valide";
+const messageErreurDate = "Votre âge doit être compris entre 10 et 100 ans";
+const messageErreurCity = "Vous devez selectionner une ville";
+const messageErreurCondition = "Vous devez accepter les conditions";
+
+// regex for Validation
+const emailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const dateRegEd = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -39,119 +52,90 @@ function closeModal() {
     modalbg.style.display = "none";
 }
 
-// addd specific layout if an input isn't valid
+// add specific layout if an input isn't valid
 function notValid(input, spanNumber, message) {
     error[spanNumber].style.display = "block";
-    input.focus();
     input.style.border = "2px solid red";
     input.style.animation = "nop 0.2s 3";
     error[spanNumber].innerHTML = message;
+    validationState.push(false);
 }
 
+// Remove specific layout once an input is valid
 function isValid(input, spanNumber) {
     error[spanNumber].style.display = "none";
     input.style.border = "none";
+    validationState.push(true);
 }
 
-let validationState = false;
-function inputValidation(input, type, spanNumber, message) {
-    input.addEventListener("blur", function (e) {
-        if (type == "text") {
-            if (input.value == "" || input.value.length < 2) {
-                notValid(input, spanNumber, message);
-                validationState = false;
-            } else {
-                isValid(input, spanNumber);
-                validationState = true;
-            }
-        } else if (type == "number") {
-            if (input.value == "") {
-                notValid(input, spanNumber, message);
-                validationState = false;
-            } else {
-                isValid(input, spanNumber);
-                validationState = true;
-            }
-        } else if (type == "checkbox") {
-            if (input.checked == false) {
-                notValid(input, spanNumber, message);
-                validationState = false;
-            } else {
-                validationState = true;
-            }
-            return false;
-        } else if (type == "mail") {
-            if (input.value == "") {
-                notValid(input, spanNumber, message);
-                validationState = false;
-            } else {
-                isValid(input, spanNumber);
-                validationState = true;
-            }
-        }
-    });
-}
-const messageErreurPrenom = "Vous devez indiqué votre prénom, il doit contenir au moins 2 lettres";
-const messageErreurNom = "Vous devez indiqué votre nom, il doit contenir au moins 2 lettres";
-const messageErreurNbTournoi = "Vous devez indiquer le nombre de tournoi auxquels vous avez déjà participé";
-
-inputValidation(firstName, "text", 0, messageErreurPrenom);
-inputValidation(lastName, "text", 1, messageErreurNom);
-inputValidation(email, "mail", 2, "Vous devez renseigner une adresse mail valide");
-inputValidation(nbTournoi, "number", 4, messageErreurNbTournoi);
-inputValidation(condition, "checkbox", 6, "Vous devez accepter les conditions");
-
-function formValidation() {
-    if (firstName.value == "" || firstName.value.length < 2) {
-        notValid(firstName, 0, "Vous devez indiqué votre prénom, il doit contenir au moins 2 lettres");
-        return false;
-    } else if (lastName.value == "" || lastName.value.length < 2) {
-        notValid(lastName, 1, "Vous devez indiqué votre nom, il doit contenir au moins 2 lettres");
-        isValid(firstName, 0);
-        return false;
-    } else if (nbTournoi.value == "") {
-        error[4].style.display = "block";
-        error[3].style.display = "none";
-        error[4].innerHTML = "Vous devez indiquer le nombre de tournoi auxquels vous avez déjà participé";
-        return false;
-    } else if (
-        document.getElementById("location1").checked == false &&
-        document.getElementById("location2").checked == false &&
-        document.getElementById("location3").checked == false &&
-        document.getElementById("location4").checked == false &&
-        document.getElementById("location5").checked == false &&
-        document.getElementById("location6").checked == false
-    ) {
-        error[5].style.display = "block";
-        error[4].style.display = "none";
-        error[5].innerHTML = "Vous devez selectionner une ville";
-        return false;
-    } else if (condition.checked == false) {
-        error[6].style.display = "block";
-        error[5].style.display = "none";
-        error[6].innerHTML = "Vous devez accepter les conditions";
-        return false;
-    } else if (birthdate.value.validity.valid == false) {
-        error[3].style.display = "block";
-        error[2].style.display = "none";
-        error[3].innerHTML = "Vous devez renseigner une date de naissance valide";
-        return false;
-    } else if (email.value == "" || email.value.validity.valid == fasle) {
-        error[2].style.display = "block";
-        error[1].style.display = "none";
-        error[2].innerHTML = "Vous devez renseigner une adresse mail valide";
-        notValid(email);
-        return false;
-    } else {
-        return true;
+function radioState() {
+    for (i in checkValidation) {
+        checkRadioValidation.push(checkValidation[i].checked);
     }
 }
 
-// check if every input is valid
+function inputValidation(input, type, spanNumber, message) {
+    if (type == "text") {
+        if (input.value == "" || input.value.length < 2) {
+            notValid(input, spanNumber, message);
+        } else {
+            isValid(input, spanNumber);
+        }
+    } else if (type == "number") {
+        if (input.value == "") {
+            notValid(input, spanNumber, message);
+        } else {
+            isValid(input, spanNumber);
+        }
+    } else if (type == "checkbox") {
+        if (input.checked == false) {
+            notValid(input, spanNumber, message);
+        } else {
+            isValid(input, spanNumber);
+        }
+        return false;
+    } else if (type == "mail") {
+        if (input.value == "" || !input.value.match(emailRegEx)) {
+            notValid(input, spanNumber, message);
+        } else {
+            isValid(input, spanNumber);
+        }
+    } else if (type == "city") {
+        radioState();
+        if (!checkRadioValidation.includes(true)) {
+            notValid(input, spanNumber, message);
+        } else {
+            isValid(input, spanNumber);
+        }
+    } else if (type == "date") {
+        let userDate = Date.parse(new Date(birthdate.value));
+        if (input.value == "" || userDate < -1514764800000 || userDate > 1356912000000) {
+            notValid(input, spanNumber, message);
+        } else {
+            isValid(input, spanNumber);
+        }
+    }
+}
+
+// check if every input is valid and prevent submission if on element isn't valid
+let validation = false;
 myForm.addEventListener("submit", function (e) {
-    if (validationState == false) {
-        e.preventDefault();
+    checkRadioValidation = [];
+    validationState = [];
+    inputValidation(firstName, "text", 0, messageErreurPrenom);
+    inputValidation(lastName, "text", 1, messageErreurNom);
+    inputValidation(email, "mail", 2, messageErreurMail);
+    inputValidation(birthdate, "date", 3, messageErreurDate);
+    inputValidation(nbTournoi, "number", 4, messageErreurNbTournoi);
+    inputValidation(cityDiv, "city", 5, messageErreurCity);
+    inputValidation(condition, "checkbox", 6, messageErreurCondition);
+    if (!validationState.includes(false)) {
+        validation = true;
+        return true;
     } else {
-        confirmation[0].style.animation = "confirmation 5s ease-in-out both running";
+        e.preventDefault();
     }
 });
+console.log(validation);
+// confirmation.style.display = "block";
+// confirmation.style.animation = "confirmation 5s ease-in-out both";
