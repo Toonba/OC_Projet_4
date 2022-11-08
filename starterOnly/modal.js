@@ -118,10 +118,11 @@ function inputValidation(input, type, spanNumber, message) {
 }
 
 // check if every input is valid and prevent submission if on element isn't valid
-let validation = false;
+let validation = {confirmation: "false"};
 myForm.addEventListener("submit", function (e) {
     checkRadioValidation = [];
     validationState = [];
+    console.log(validation.confirmation);
     inputValidation(firstName, "text", 0, messageErreurPrenom);
     inputValidation(lastName, "text", 1, messageErreurNom);
     inputValidation(email, "mail", 2, messageErreurMail);
@@ -130,12 +131,17 @@ myForm.addEventListener("submit", function (e) {
     inputValidation(cityDiv, "city", 5, messageErreurCity);
     inputValidation(condition, "checkbox", 6, messageErreurCondition);
     if (!validationState.includes(false)) {
-        validation = true;
+        validation.confirmation = "true";
+        alert("Formulaire envoyé !");
         return true;
     } else {
+        console.log(validation.confirmation);
         e.preventDefault();
     }
 });
-console.log(validation);
-// confirmation.style.display = "block";
-// confirmation.style.animation = "confirmation 5s ease-in-out both";
+
+console.log(validation.confirmation);
+if (validation.confirmation === "true") {
+    confirmation.style.display = "block";
+    confirmation.style.animation = "confirmation 5s ease-in-out both";
+}
