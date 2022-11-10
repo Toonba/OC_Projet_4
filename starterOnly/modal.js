@@ -93,7 +93,6 @@ function inputValidation(input, type, spanNumber, message) {
         } else {
             isValid(input, spanNumber);
         }
-        return false;
     } else if (type == "mail") {
         if (input.value == "" || !input.value.match(emailRegEx)) {
             notValid(input, spanNumber, message);

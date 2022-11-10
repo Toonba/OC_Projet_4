@@ -547,17 +547,3 @@ footer {
         transform: translateX(-0.2rem);
     }
 }
-
-@keyframes confirmation {
-    0% {
-        transform: translate(-200%, -50%);
-    }
-    40%,
-    50%,
-    60% {
-        transform: translate(-50%, -50%);
-    }
-    100% {
-        transform: translate(200%, -50%);
-    }
-}
