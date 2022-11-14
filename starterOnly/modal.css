@@ -87,6 +87,9 @@ img {
         right: 0;
         top: 0;
     }
+    .topnav.responsive .main-navbar {
+        margin-top: 50px;
+    }
     .topnav.responsive a {
         float: none;
         display: block;
@@ -94,14 +97,14 @@ img {
     }
 }
 
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 825px) {
     .topnav a {
         display: none;
     }
     .topnav a.icon {
         float: right;
         display: block;
-        margin-top: -15px;
+        margin-top: 0;
     }
 }
 
@@ -190,7 +193,18 @@ main {
     margin: 15px auto;
 }
 
-label {
+.form-confirmation {
+    text-align: center;
+    display: none;
+    padding: 0 2rem;
+    margin-top: 150px;
+    height: 300px;
+}
+.form-confirmation input {
+    margin-top: 150px;
+}
+
+.btn-submit-confirm label {
     font-family: var(--font-default);
     font-size: 17px;
     font-weight: normal;
@@ -209,6 +223,9 @@ input {
     border-radius: 8px;
     font-size: 20px;
     height: 48px;
+}
+.formData {
+    margin-bottom: 0.5rem;
 }
 .formData[data-error]::after {
     content: attr(data-error);
@@ -229,12 +246,6 @@ input {
     border: 2px solid #e54858;
 }
 
-/* 
-input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-} */
 .checkbox-label,
 .checkbox2-label {
     position: relative;
@@ -325,7 +336,8 @@ input[data-error]::after {
     transform: rotate(-45deg);
 }
 .btn-submit,
-.btn-signup {
+.btn-signup,
+.btn-confirm {
     background: #fe142f;
     display: block;
     margin: 0 auto;
@@ -335,6 +347,9 @@ input[data-error]::after {
     color: #fff;
     cursor: pointer;
     border: 0;
+}
+.btn-submit {
+    display: none;
 }
 
 /* custom select styles */
@@ -458,6 +473,9 @@ input[data-error]::after {
     margin: 0;
     margin-top: 59px;
 }
+.responsive-btn {
+    display: none;
+}
 .hero-img {
     grid-column: span 8;
 }
@@ -496,7 +514,7 @@ footer {
         content: unset;
     }
     .hero-headline {
-        font-size: 4.5rem;
+        font-size: 4rem;
         white-space: normal;
     }
     .hero-text {
@@ -511,6 +529,12 @@ footer {
         display: block;
         margin: 32px auto 10px;
         padding: 12px 35px;
+    }
+    .responsive-btn {
+        display: block;
+    }
+    .nonresponsive-btn {
+        display: none;
     }
     .copyrights {
         margin-top: 50px;
@@ -537,6 +561,7 @@ footer {
 
 #city-checkbox {
     border-radius: 16px;
+    padding: 0 0.5rem 0.4rem 0;
 }
 
 @keyframes nop {

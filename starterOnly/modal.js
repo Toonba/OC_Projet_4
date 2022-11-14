@@ -24,6 +24,9 @@ const checkValidation = document.getElementsByClassName("check-validation");
 const condition = document.getElementById("checkbox1");
 const confirmation = document.getElementById("confirmation");
 const cityDiv = document.getElementById("city-checkbox");
+const modalConfirmation = document.getElementsByClassName("form-confirmation");
+const formInput = document.getElementsByClassName("form-input");
+const formConfirm = document.getElementsByClassName("btn-confirm");
 
 // Error message for each scenario
 const messageErreurPrenom = "Vous devez indiqué votre prénom, il doit contenir au moins 2 lettres";
@@ -38,9 +41,10 @@ const messageErreurCondition = "Vous devez accepter les conditions";
 const emailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const dateRegEd = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
 
-// launch modal event
+// launch and close modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 closeBtn.addEventListener("click", closeModal);
+// closeModalConfirm[0].addEventListener("click", closeModal);
 
 // launch modal form
 function launchModal() {
@@ -73,7 +77,7 @@ function radioState() {
         checkRadioValidation.push(checkValidation[i].checked);
     }
 }
-// Function checking if input isn't empty + is it respect condition asked 
+// Function checking if input isn't empty + is it respect condition asked
 function inputValidation(input, type, spanNumber, message) {
     if (type == "text") {
         if (input.value == "" || input.value.length < 2) {
@@ -117,7 +121,7 @@ function inputValidation(input, type, spanNumber, message) {
 }
 
 // check if every input is valid and prevent submission if on element isn't valid
-myForm.addEventListener("submit", function (e) {
+formConfirm[0].addEventListener("click", function (e) {
     checkRadioValidation = [];
     validationState = [];
     inputValidation(firstName, "text", 0, messageErreurPrenom);
@@ -128,10 +132,11 @@ myForm.addEventListener("submit", function (e) {
     inputValidation(cityDiv, "city", 5, messageErreurCity);
     inputValidation(condition, "checkbox", 6, messageErreurCondition);
     if (!validationState.includes(false)) {
-        alert("Formulaire envoyé !");
-        return true;
+        formInput[0].style.display = "none";
+        modalConfirmation[0].style.display = "block";
+        submitBtn.style.display = "block";
+        formConfirm[0].style.display = "none";
     } else {
         e.preventDefault();
     }
 });
-
