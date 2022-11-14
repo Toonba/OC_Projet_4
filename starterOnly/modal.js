@@ -39,12 +39,10 @@ const messageErreurCondition = "Vous devez accepter les conditions";
 
 // regex for Validation
 const emailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const dateRegEd = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
 
 // launch and close modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 closeBtn.addEventListener("click", closeModal);
-// closeModalConfirm[0].addEventListener("click", closeModal);
 
 // launch modal form
 function launchModal() {
@@ -135,7 +133,6 @@ formConfirm[0].addEventListener("click", function (e) {
         formInput[0].style.display = "none";
         modalConfirmation[0].style.display = "block";
         submitBtn.style.display = "block";
-        formConfirm[0].style.display = "none";
     } else {
         e.preventDefault();
     }
