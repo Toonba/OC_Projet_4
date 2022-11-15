@@ -39,6 +39,8 @@ const messageErreurCondition = "Vous devez accepter les conditions";
 
 // regex for Validation
 const emailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const numberRegex = /(^|[^- \t])\s*\d+/;
+const textRegex = /[a-zA-Z]+\s/;
 
 // launch and close modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -78,13 +80,13 @@ function radioState() {
 // Function checking if input isn't empty + is it respect condition asked
 function inputValidation(input, type, spanNumber, message) {
     if (type == "text") {
-        if (input.value == "" || input.value.length < 2) {
+        if (input.value == "" || input.value.length < 2 || input.value.trim() == false) {
             notValid(input, spanNumber, message);
         } else {
             isValid(input, spanNumber);
         }
     } else if (type == "number") {
-        if (input.value == "") {
+        if (input.value == "" || parseInt(input.value) < 0) {
             notValid(input, spanNumber, message);
         } else {
             isValid(input, spanNumber);
